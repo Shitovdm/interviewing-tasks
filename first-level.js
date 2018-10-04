@@ -173,27 +173,15 @@ console.log(indexOf([1, 2, 3], 1));
  *      
  *      Решение:
  */
-function isPalindrome(string) {
-    var tmpArr = new Array();
-    var tmpArrT = new Array();
-    for (var i = 0; i < string.length; i++) {
-        if (string[i] !== " ") {
-            tmpArr.push(string[i].toLowerCase());
+function isPalindrome(string){
+    string = string.split(' ').join('').toLowerCase();
+    let mL = Math.floor(string.length / 2); // mL - middleLetter;
+
+    for (let i = 0, j = string.length - 1; i < mL; i++, j--) {
+        if (string[j] === string[i]) {
+            continue;
         }
-    }
-    for (var i = string.length - 1; i >= 0; i--) {
-        if (string[i] !== " ") {
-            tmpArrT.push(string[i].toLowerCase());
-        }
-    }
-    if (tmpArr.length === tmpArrT.length) {
-        for (var i = 0; i < tmpArr.length; i++) {
-            if (tmpArr[i] !== tmpArrT[i]) {
-                return false;
-            }
-        }
-    } else {
-        return false;
+        else return false;
     }
     return true;
 }
@@ -216,18 +204,20 @@ console.log(isPalindrome('A man a plan a canal Panama'));
  *      Решение:
  *      Формула суммы арифмитической прогрессии: ((n * n) + n)/2;
  */
-function missing(array) {
-    var sum = 0;
-    var n = array.length + 1;
-    for (var i = 0; i < array.length; i++) {
-        sum += array[i];
+function missing(arr) {
+    for (let i = 1; i < arr.length; i++) {
+        if (arr.indexOf(i) == -1) return i;
     }
-    var S = (((n * n) + n) / 2);
-    if (S !== sum) {
-        return (S - sum);
-    } else {
-        return undefined;
+    return undefined;
+
+    /*Использовать эту функцию если в переданном массиве несколько пропущенных цифр.
+
+    var arrMissed = [],
+    maxNum = arr.sort((a,b) => b-a)[0];
+    for (let i = 1; i < maxNum; i++) {
+        if (arr.indexOf(i) == -1) arrMissed.push(i);
     }
+    return arrMissed;*/
 }
 console.log(missing([5, 1, 4, 2]));
 
